@@ -1,7 +1,6 @@
 #include <iostream>
 #include<set>
 #include<vector>
-#include<list>
 
 using namespace std;
 
@@ -9,39 +8,32 @@ bool needs_resistance_adjustment(int node, vector<multiset<pair<int, double>>>& 
     return indegree[node] == 1 && adj_ls[node].size() == 1;
 }
 
-bool adjust_parallel_connections(int node, vector<multiset<pair<int, double>>>& adj_ls, vector<int>& indegree) {
-    if (adj_ls[node].size() < 2) return false;
-    list<pair<int, double>> adjacent_list(adj_ls[node].begin(), adj_ls[node].end());
-    list<pair<int, double>>::iterator it = adjacent_list.begin();
-    bool solved_parallel = false;
+
+void adjust_parallel_connections(int node, vector<multiset<pair<int, double>>>& adj_ls, vector<int>& indegree) {
+    multiset<pair<int, double>>::iterator it = adj_ls[node].begin();
     
-    while (it != adjacent_list.end()) {
+    while (it != adj_ls[node].end()) {
         auto start = it;
-        auto end = ++list<pair<int, double>>::iterator(it);
+        auto end = ++multiset<pair<int, double>>::iterator(it);
         
         double result = 0;
         bool flag = false;
         
-        while (end != adjacent_list.end() && it -> first == end -> first) {
+        while (end != adj_ls[node].end() && it -> first == end -> first) {
             result += 1.0 / end -> second;
-            flag = true;
+            end = adj_ls[node].erase(end);
             indegree[it -> first]--;
-            ++end;
+            flag = true;
         }
         
         if (flag == true) {
-            solved_parallel = true;
             result += 1.0 / start -> second;
-            adjacent_list.erase(start, end);
-            adjacent_list.insert(end, {start -> first, 1.0 / result});
+            adj_ls[node].erase(start);
+            adj_ls[node].insert({start -> first, 1.0 / result});
         }
         
         it = end;
     }
-    
-    adj_ls[node].clear();
-    adj_ls[node].insert(adjacent_list.begin(), adjacent_list.end());
-    return solved_parallel;
 }
 
 void dfs(int node, vector<multiset<pair<int, double>>>& adj_ls, vector<int>& indegree) {
