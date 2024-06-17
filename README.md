@@ -2,15 +2,14 @@
 
 This C++ program solves a network of resistors using the concept of parallel and series connections.
 
-When it comes to solve network of resistance programitically, the first thing that comes to your mind that which data-structure should be used to represent a network of resistors ? When tackling the problem of solving a network of resistors programmatically, the first step is to understand the network and its resistances. Drawing a circuit diagram helps visualize the connections between resistors and other elements. Once the circuit is visualized, the next consideration is how to represent it in a programmatic form. So, before jumping into the solution, try to think about which data structure should be used to represent the network of resistors.
+When it comes to solve network of resistance using a programming language, the first thing that comes to your mind that which data-structure should be used to represent a network of resistors? When tackling the problem of solving a network of resistors using a programming language, the first step is to understand the network and its resistances. Drawing a circuit diagram helps visualize the connections between resistors and other elements. Once the circuit is visualized, the next consideration is how to represent it in a
+programming language. So, before jumping into the solution, try to think about which data structure should be used to represent the network of resistors.
 
 I assume that, you can can calculate total resistance of a circuit on a paper using ohm's law.
 
 ## Intution
-In this solution I am going to represent the network of resistors as a directed graph where direction represent the flow of current.
-Representing a network of resistors as a directed graph involves structuring the graph to capture the flow of current through the circuit. In this representation, nodes signifies junctions or points in the circuit, where edges depict resistors connecting these nodes. Each edge in the directed graph has a direction to indicate the flow of current from one node to another.
-
-In a directed graph of a resistor network, nodes correspond to specific points in the circuit, such as junctions or terminals where current can enter or leave. Edges represent resistors and are directed from the node with higher potential to the one with lower potential, reflecting the flow of current according to Ohm's law. The resistance value of each resistor is associated with its corresponding edge.
+In this solution I am going to represent the network of resistors as a directed graph where node represents the junction and direction represent the flow of current.
+Representing a network of resistors as a directed graph involves structuring the graph to capture the flow of current through the circuit. In this representation, nodes signifies junctions or points in the circuit, where edges depict resistors connecting these nodes. Each edge in the directed graph has a direction to indicate the flow of current from one node to another. The value of the resistors stored as edge weight.
 
 I use the an array of mutiset to represent the graph in C++. Now you might thinking why I want to use multiset. The reason is multiset stores all elemnts in sorted order. So that computation of parallel connection is done in cheaper time complexity.
 
@@ -40,7 +39,7 @@ here is the step by step illustration how we solve it on a paper.
 ![Step 1](images/illustration1.png)
 
 
-Since 4 till 6 their are series of connection we just acuumulate resistences placed in betweed 4 and 5, 5 and 6. which means 10 + 10 = 20.
+Since 4 till 6 their are series of connection we just acuumulate resistances placed in betweed 4 and 5, 5 and 6. which means 10 + 10 = 20.
 
 
 
